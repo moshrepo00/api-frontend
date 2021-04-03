@@ -12,10 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - name: Build Angular app
         run: |
-          curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-          apt-get install -y nodejs
           npm install -g @angular/cli
           npm i
           ng build --prod
@@ -23,7 +25,7 @@ jobs:
         uses: burnett01/rsync-deployments@4.1
         with:
           switches: -avzr --delete --exclude /web/sites/*/settings.local.php --exclude /web/sites/*/files/ --exclude linux_amd64_DirectQueueGo
-          remote_path: /var/www/drupal.moweb.info
+          remote_path: /var/node-apps/frontend-api
           remote_user: ${{ secrets.USER }}
           remote_host: ${{ secrets.HOST }}
           remote_key: ${{ secrets.KEY }}
