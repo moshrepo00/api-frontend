@@ -3,14 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
+import { environment } from './../environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-
-  url = 'http://local.api.com';
+  url: string;
   signUpResource = '/auth/user_sign_up';
   userResource = '/getuserprofile';
   updateUserResource = '/auth/updateuserprofile';
@@ -19,6 +19,7 @@ export class ApiService {
 
 
   constructor(private http: HttpClient) {
+    this.url = environment.apiUrl;
   }
 
   userSignUp(username, password): Observable<any> {
