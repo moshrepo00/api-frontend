@@ -1,0 +1,31 @@
+name: PHP Composer
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build Angular app
+        run: |
+          curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+          apt-get install -y nodejs
+          npm install -g @angular/cli
+          npm i
+          ng build --prod
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete --exclude /web/sites/*/settings.local.php --exclude /web/sites/*/files/ --exclude linux_amd64_DirectQueueGo
+          remote_path: /var/www/drupal.moweb.info
+          remote_user: ${{ secrets.USER }}
+          remote_host: ${{ secrets.HOST }}
+          remote_key: ${{ secrets.KEY }}
+
+
