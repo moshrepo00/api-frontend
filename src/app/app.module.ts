@@ -9,6 +9,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
 import { FormsModule } from '@angular/forms';
+import { NgxStripeModule } from 'ngx-stripe';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    NgxStripeModule.forRoot('***your-stripe-publishable-key***'),
     CookieModule.forRoot()
   ],
   providers: [HttpClientModule, FormsModule],
