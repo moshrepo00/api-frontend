@@ -21,6 +21,8 @@ jobs:
           npm install -g @angular/cli
           npm i
           ng build --prod
+          cd server
+          npm install
       - name: rsync deployments
         uses: burnett01/rsync-deployments@4.1
         with:
