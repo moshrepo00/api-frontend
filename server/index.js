@@ -1,8 +1,8 @@
-require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = 3000;
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const basicAuth = require('express-basic-auth');
 
 app.use((req, res, next) => {
@@ -20,7 +20,6 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, '../dist/drupal-api-frontend')));
 app.get('*', (req, res) => {
-  console.log('debugging ', process.env.USER);
   const dist = path.join(__dirname, '../dist/drupal-api-frontend/index.html');
   res.sendFile(dist);
 });

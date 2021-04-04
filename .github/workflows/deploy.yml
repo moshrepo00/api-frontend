@@ -24,7 +24,7 @@ jobs:
       - name: rsync deployments
         uses: burnett01/rsync-deployments@4.1
         with:
-          switches: -avzr --delete
+          switches: -avzr --delete --exclude server/.env
           remote_path: /var/node-apps/frontend-api
           remote_user: ${{ secrets.USER }}
           remote_host: ${{ secrets.HOST }}
